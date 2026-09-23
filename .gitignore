@@ -1,0 +1,5 @@
+code-name.pdf
+
+# OS / editor cruft
+.DS_Store
+*.swp
