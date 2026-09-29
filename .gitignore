@@ -1,5 +1,7 @@
 code-name.pdf
-
-# OS / editor cruft
 .DS_Store
 *.swp
+Modelfile.test
+.env
+.idea
+__pycache__/
