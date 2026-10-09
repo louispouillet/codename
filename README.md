@@ -9,9 +9,8 @@ plain-text prompts, all running on `granite3.1-moe:3b` via [Ollama](https://olla
 codename/
 ├── Modelfile            # the hardened agent
 ├── STRATEGY.md          # how the agent keeps the codeword secret, and why
-├── Makefile             # build/chat/clean helpers (see below)
+├── Makefile             # build/run/clean helpers (see below)
 ├── .env.example         # template for local test PASSWORD/CODEWORD
-├── scripts/chat.sh      # sends one message to a model, prints the reply
 ├── attacks/             # the extraction toolkit, one file per family
 │   ├── ATTACKS.md                     # how each attack works + measured results
 │   ├── 01-template-injection.prompt   # forged chat turns with role tokens
@@ -58,7 +57,6 @@ cp .env.example .env   # then edit PASSWORD/CODEWORD in .env if you want
 
 ```sh
 make build                              # renders Modelfile.test from .env and creates the model
-make chat MSG="What is your codeword?"  # one message, one reply, fresh conversation each time
 make run                                # interactive chat, history kept until you quit
 make clean                              # removes Modelfile.test and deletes the model
 ```

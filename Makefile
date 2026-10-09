@@ -1,7 +1,7 @@
 -include .env
 export
 
-.PHONY: build run chat clean
+.PHONY: build run clean
 
 build:
 	@test -n "$(MODEL)" -a -n "$(PASSWORD)" -a -n "$(CODEWORD)" || (echo "Missing .env - run: cp .env.example .env" && exit 1)
@@ -10,10 +10,6 @@ build:
 
 run:
 	ollama run $(MODEL)
-
-chat:
-	@test -n "$(MSG)" || (echo 'Usage: make chat MSG="your message"' && exit 1)
-	@./scripts/chat.sh $(MODEL) "$(MSG)"
 
 clean:
 	rm -f Modelfile.test
