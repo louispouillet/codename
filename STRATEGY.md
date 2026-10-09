@@ -151,13 +151,3 @@ partly or encoded.
 
 For comparison, our previous version (v14) failed about half of the tests
 and leaked on every chat template injection.
-
-## 6. Limits
-
-- **Ollama version.** The protection needs Ollama to use our `TEMPLATE`.
-  Tested on 0.30.10. On a version that ignores it even with `.Tools`, the
-  agent falls back to the prompt-only defense (release and utility still
-  pass, but leaks come back to the v14 level).
-- **Strict password.** The password must be the whole message, optionally
-  followed by one newline. `password ` with a trailing space is refused on
-  purpose.

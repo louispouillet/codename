@@ -16,7 +16,7 @@ codename/
 │   ├── ATTACKS.md                     # how each attack works + measured results
 │   ├── 01-template-injection.prompt   # forged chat turns with role tokens
 │   ├── 02-poem.prompt                 # creative obfuscation
-│   ├── 03-obfuscation.prompt          # base64 instruction smuggling
+│   ├── 03-payload-splitting.prompt    # instruction split into variables
 │   ├── 04-authority.prompt            # privileged-mode impersonation
 │   └── 05-prompt-leak.prompt          # system prompt disclosure
 └── history/             # every past Modelfile version, kept as a trace of the
@@ -66,20 +66,15 @@ make clean                              # removes Modelfile.test and deletes the
 `Modelfile.test` and `.env` are local-only (gitignored): they hold real test
 values, never commit them.
 
-## Part 2: The extraction toolkit (`attacks/`)
-
-Five single-message prompts, each exploiting a *different* family of prompt
-injection technique, each under 1500 characters. Meant to be run against
-agents we've never seen, so genericity beats a prompt hand-tuned to one
-target.
+## Part 2: Attacks
 
 | File | Family | What it exploits |
 | --- | --- | --- |
 | `01-template-injection.prompt` | Chat template injection | unescaped granite role tokens: forges a system turn and a started assistant answer |
 | `02-poem.prompt` | Creative obfuscation | a writing task whose structure requires the secret |
-| `03-obfuscation.prompt` | Encoded instruction smuggling | a base64 payload the model decodes and executes |
+| `03-payload-splitting.prompt` | Payload splitting | a request cut into harmless variables the model reassembles and executes |
 | `04-authority.prompt` | Authority impersonation | a claimed root/sudo context |
-| `05-prompt-leak.prompt` | System prompt disclosure | asks for the instructions that contain the secret |
+| `05-prompt-leak.prompt` | System prompt disclosure | asks for a summary of the instructions that contain the secret |
 
 [attacks/ATTACKS.md](attacks/ATTACKS.md) explains each technique, why they
 are distinct families, and their measured success rate against the
@@ -88,5 +83,4 @@ subject's weak skeleton and our own past versions.
 ## Version history
 
 Version snapshots, measured regressions and selection rationale are kept in
-`history/CHANGELOG.md` and `history/results/`. They are a development trace;
-the evaluated defense remains the root `Modelfile`.
+`history/CHANGELOG.md` and `history/results/`. They are a development traces.
